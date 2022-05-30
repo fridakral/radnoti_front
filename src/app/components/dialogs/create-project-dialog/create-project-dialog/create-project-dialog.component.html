@@ -1,0 +1,61 @@
+<mat-toolbar color="primary">
+  <!-- <div style="width: 100%"></div> -->
+  <h1 style="width: 100%">Új projekt létrehozása</h1>
+</mat-toolbar>
+
+<mat-dialog-content
+  style="
+    text-align: center;
+    padding-right: 30px;
+    padding-left: 30px;
+    width: 100%;
+  "
+>
+  <form [formGroup]="listForm">
+    <mat-form-field
+      ngDefaultControl
+      style="
+        width: 100%;
+        padding-left: 16px;
+        margin-right: 16px;
+        margin-top: 0.5em;
+        overflow: hidden;
+      "
+    >
+      <mat-label>Név</mat-label>
+      <input
+        matInput
+        formControlName="projectNameCtrl"
+        placeholder="Pl.: Első projektem"
+      />
+      <mat-error *ngIf="projectNameCtrl?.invalid && projectNameCtrl?.touched">
+        Kötelező!
+      </mat-error>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions style="justify-content: center">
+  <div class="Btn">
+    <button
+      mat-raised-button
+      (click)="submit()"
+      color="primary"
+      [disabled]="isLoading || listForm.invalid"
+    >
+      <span *ngIf="isLoading"
+        ><mat-spinner
+          color="accent"
+          [diameter]="20"
+          style="
+            float: left;
+            vertical-align: middle;
+            margin-right: 10%;
+            margin-top: 7%;
+          "
+        ></mat-spinner
+      ></span>
+      Lista hozzáadása
+    </button>
+  </div>
+  <button mat-icon-button mat-dialog-close><mat-icon>close</mat-icon></button>
+</mat-dialog-actions>

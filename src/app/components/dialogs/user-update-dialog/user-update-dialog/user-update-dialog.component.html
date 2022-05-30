@@ -1,0 +1,69 @@
+<mat-dialog-content class="uwu">
+  <mat-card class="card">
+    <form [formGroup]="userForm">
+      <h3 style="margin-bottom: 1em">Profil adatainak módosítása</h3>
+
+      <mat-form-field appearance="outline" style="width: 100%">
+        <mat-label> Új felhasználónév </mat-label>
+        <input
+          matInput
+          type="text"
+          autocomplete="off"
+          formControlName="username"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" style="width: 100%">
+        <mat-label> Új e-mail </mat-label>
+        <input
+          matInput
+          type="text"
+          autocomplete="off"
+          formControlName="email"
+        />
+        <mat-error *ngIf="email?.hasError('email')">Hibás formátum!</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" style="width: 100%">
+        <mat-label> Új jelszó</mat-label>
+        <input
+          matInput
+          autocomplete="off"
+          formControlName="password1"
+          type="text"
+        />
+        <mat-error *ngIf="this.password1?.hasError('minLength')"
+          >Min. 3 karatker hosszúnak kell lennie!</mat-error
+        >
+      </mat-form-field>
+
+      <div class="Btn">
+        <button
+          class="submitBtn"
+          mat-raised-button
+          color="primary"
+          [disabled]="userForm.invalid"
+          type="submit"
+          (click)="onSubmit()"
+        >
+          <span *ngIf="isLoading"
+            ><mat-spinner
+              color="accent"
+              [diameter]="20"
+              style="
+                float: left;
+                vertical-align: middle;
+                margin-right: 10%;
+                margin-top: 7%;
+              "
+            ></mat-spinner
+          ></span>
+          Módosítás
+        </button>
+        <button style="margin-left: 1em" mat-raised-button mat-dialog-close>
+          Mégse
+        </button>
+      </div>
+    </form>
+  </mat-card>
+</mat-dialog-content>

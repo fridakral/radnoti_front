@@ -1,0 +1,64 @@
+<section class="example-section">
+  <span class="example-list-section">
+    <mat-checkbox
+      class="example-margin"
+      [checked]="allComplete"
+      color="accent"
+      [indeterminate]="someComplete()"
+      (change)="setAll($event.checked)"
+    >
+      {{ listData.taskListName }}
+      <button
+        mat-icon-button
+        style="margin-left: auto"
+        (click)="deleteTaskList()"
+      >
+        <mat-icon color="warn">delete_forever</mat-icon>
+      </button>
+    </mat-checkbox>
+  </span>
+  <span class="example-list-section">
+    <ul>
+      <li *ngFor="let item of listData.taskListItems">
+        <mat-checkbox
+          [(ngModel)]="item.isDone"
+          color="accent"
+          (change)="updateAllComplete()"
+        >
+          {{ item.taskListItemName }}
+        </mat-checkbox>
+      </li>
+      <li>
+        <button
+          *ngIf="!isFormEnabled"
+          mat-icon-button
+          (click)="changeToInput()"
+        >
+          <mat-icon color="accent">add</mat-icon>
+        </button>
+        <form
+          *ngIf="isFormEnabled"
+          [formGroup]="taskListItemForm"
+          (ngSubmit)="createNewItem()"
+        >
+          <mat-form-field appearance="fill" style="width: 100%">
+            <mat-label>Lista elem név</mat-label>
+            <input
+              matInput
+              formControlName="taskListItemName"
+              #listName
+              maxlength="30"
+              type="text"
+              placeholder="Lista elem név.."
+              required
+            />
+            <button mat-icon-button matSuffix type="submit">
+              <mat-icon color="accent">playlist_add</mat-icon>
+            </button>
+            <mat-hint align="end">{{ listName.value.length }} / 30</mat-hint>
+          </mat-form-field>
+        </form>
+      </li>
+    </ul>
+  </span>
+</section>

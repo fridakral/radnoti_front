@@ -1,0 +1,81 @@
+<mat-card
+  class="d-block"
+  style="
+    margin-bottom: 1em;
+    height: auto;
+    border: 1px solid #000;
+    box-shadow: #000;
+  "
+>
+  <mat-card-title style="display: flex">
+    <p
+      style="font-size: 0.8rem; color: lightgrey; margin: 0; align-self: center"
+    >
+      <strong>
+        {{ data.createdBy }}
+      </strong>
+      - {{ data.createdOn | date: "EEEE, MMMM d, y, h:mm:ss":"UTC" }}
+    </p>
+    <button
+      *ngIf="data.createdBy === user && !isEditing"
+      mat-icon-button
+      color="warn"
+      (click)="removeComment()"
+      style="margin-left: auto"
+    >
+      <mat-icon>delete_forever</mat-icon>
+    </button>
+  </mat-card-title>
+  <mat-card-content>
+    <h6 *ngIf="!isEditing; else elseBlock">{{ data.comment }}</h6>
+    <ng-template #elseBlock>
+      <form [formGroup]="commentEditForm" (ngSubmit)="saveChanges()">
+        <mat-form-field appearance="fill" style="width: 100%">
+          <mat-label>Megjegyzés</mat-label>
+          <textarea
+            matInput
+            type="text"
+            placeholder="Ez egy komment.."
+            formControlName="taskCommentName"
+            cdkTextareaAutosize
+            style="overflow: hidden"
+            maxlength="500"
+            #taskComment
+            [value]="data.comment"
+            required
+          ></textarea>
+          <button
+            mat-icon-button
+            matSuffix
+            type="submit"
+            [disabled]="commentEditForm?.invalid"
+          >
+            <mat-icon color="accent">edit</mat-icon>
+          </button>
+          <mat-hint align="end">{{ taskComment.value.length }} / 500</mat-hint>
+          <mat-error *ngIf="commentEditForm?.invalid">Kötelező!</mat-error>
+        </mat-form-field>
+      </form>
+    </ng-template>
+  </mat-card-content>
+  <mat-card-actions>
+    <button
+      mat-stroked-button
+      color="accent"
+      *ngIf="data.createdBy === user && !isEditing"
+      (click)="isEditing = !isEditing"
+      style="font-style: unset"
+    >
+      szerkesztés
+    </button>
+    <button
+      mat-stroked-button
+      color="accent"
+      *ngIf="isEditing"
+      (click)="isEditing = !isEditing"
+      style="font-style: unset"
+    >
+      Mégsem
+    </button>
+  </mat-card-actions>
+</mat-card>

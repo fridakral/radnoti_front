@@ -1,0 +1,78 @@
+<ng-container [ngSwitch]="stepperOrientation | async">
+  <div *ngSwitchCase="'horizontal'"></div>
+  <div *ngSwitchCase="'vertical'"></div>
+</ng-container>
+
+<div
+  class="position-absolute top-50 start-50 translate-middle"
+  style="width: 80vw; z-index: 100"
+  *ngIf="loading"
+>
+  <mat-progress-bar mode="indeterminate" color="accent"></mat-progress-bar>
+  <h3 style="color: #d9b08c">Projektek betöltése ...</h3>
+</div>
+
+<div *ngIf="lengthIsOne && !loading; else elseBlock">
+  <app-project-card
+    *ngFor="let project of projects"
+    [projectID]="project.projectId"
+    [projectName]="project.projectName"
+    [listsData]="project.lists"
+  ></app-project-card>
+</div>
+<ng-template #elseBlock>
+  <mat-stepper
+    [orientation]="(stepperOrientation | async)!"
+    #stepper
+    style="
+      display: contents;
+      width: 80%;
+      height: 80vh;
+      justify-content: center;
+      align-items: center;
+    "
+    color="primary"
+  >
+    <ng-template matStepperIcon="edit" let-index="index">{{
+      index + 1
+    }}</ng-template>
+    <ng-template matStepperIcon="done" let-index="index">{{
+      index + 1
+    }}</ng-template>
+    <mat-step [label]="project.projectName" *ngFor="let project of projects">
+      <app-project-card
+        [projectID]="project.projectId"
+        [projectName]="project.projectName"
+        [listsData]="project.lists"
+      >
+        ></app-project-card
+      >
+    </mat-step>
+  </mat-stepper>
+</ng-template>
+<div class="addProjectBtn" *ngIf="!loading && !maxProjectNumber">
+  <h1
+    *ngIf="projects.length == 0"
+    style="
+      display: block;
+      width: 100%;
+      text-align: center;
+      margin-bottom: 10%;
+      color: #d9b08c;
+    "
+  >
+    Hozz létre egy projektet!
+  </h1>
+  <button
+    *ngIf="!maxProjectNumber"
+    mat-fab
+    color="accent"
+    aria-label="Example icon button with a bookmark icon"
+    matTooltip="Projekt létrehozása."
+    matTooltipPosition="below"
+    matTooltipHideDelay="500"
+    (click)="createProject()"
+  >
+    <mat-icon>add</mat-icon>
+  </button>
+</div>

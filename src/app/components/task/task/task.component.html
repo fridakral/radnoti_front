@@ -1,0 +1,28 @@
+<div class="example-box" cdkDrag>
+  <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+  <mat-expansion-panel
+    style="width: 100%; height: auto"
+    (opened)="panelOpenState = true"
+    (closed)="panelOpenState = false"
+  >
+    <mat-expansion-panel-header class="example-box">
+      <mat-panel-title> {{ name }}</mat-panel-title>
+    </mat-expansion-panel-header>
+    <mat-panel-description style="height: auto; vertical-align: middle">
+      <div style="width: 100%">
+        <p style="float: left; width: 80%">
+          {{ desc }}
+        </p>
+        <button
+          mat-icon-button
+          color="accent"
+          style="float: right"
+          (click)="openTaskDialog()"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+      </div>
+    </mat-panel-description>
+  </mat-expansion-panel>
+  <mat-divider [inset]="true"></mat-divider>
+</div>

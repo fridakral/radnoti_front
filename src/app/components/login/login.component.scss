@@ -1,0 +1,38 @@
+*,
+** {
+  margin: 0;
+  padding: 0;
+}
+.card {
+  height: 60%;
+  align-items: center;
+}
+.uwu {
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  text-align: center;
+  margin-top: 10%;
+  max-height: 80%;
+}
+h1 {
+  text-align: center;
+  color: #d9b08c;
+}
+form {
+  width: 80vw;
+  height: auto;
+  margin-top: 1%;
+  justify-content: center;
+  align-items: center;
+}
+.Btn {
+  width: 100%;
+  text-align: center;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+.usernameInput .passwordInput {
+  width: 100%;
+}

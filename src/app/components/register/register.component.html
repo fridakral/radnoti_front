@@ -1,0 +1,108 @@
+<div class="uwu">
+  <mat-card class="card">
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+      <h1 style="margin-bottom: 1em">Regisztráció</h1>
+      <mat-form-field appearance="outline" style="width: 49%; float: left">
+        <mat-label> Keresztnév </mat-label>
+        <input
+          matInput
+          type="text"
+          required
+          autocomplete="off"
+          formControlName="firstname"
+          required
+        />
+        <mat-error *ngIf="firstname?.invalid">{{
+          getFirstnameMessage()
+        }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" style="width: 49%; float: right">
+        <mat-label> Vezetéknév </mat-label>
+        <input
+          matInput
+          type="text"
+          required
+          autocomplete="off"
+          formControlName="lastname"
+          required
+        />
+        <mat-error *ngIf="lastname?.invalid">{{
+          getLastnameMessage()
+        }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" style="width: 100%">
+        <mat-label> Felhasználónév </mat-label>
+        <input
+          matInput
+          type="text"
+          required
+          autocomplete="off"
+          formControlName="username"
+        />
+        <mat-error *ngIf="username?.invalid">{{
+          getUsernameMessage()
+        }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" style="width: 100%">
+        <mat-label> E-mail </mat-label>
+        <input
+          matInput
+          type="text"
+          required
+          autocomplete="off"
+          formControlName="email"
+          required
+        />
+        <mat-error *ngIf="email?.invalid">{{ getEmailMessage() }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" style="width: 100%">
+        <mat-label> Jelszó </mat-label>
+        <input
+          matInput
+          autocomplete="off"
+          formControlName="password"
+          [type]="hide ? 'password' : 'text'"
+          required
+        />
+        <mat-error *ngIf="password?.invalid">{{ getErrorMessage() }}</mat-error>
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="hide = !hide"
+          type="button"
+          [attr.aria-label]="'Jelszó elrejtése'"
+          [attr.aria-pressed]="hide"
+        >
+          <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+        </button>
+      </mat-form-field>
+      <div class="Btn">
+        <button
+          class="submitBtn"
+          mat-raised-button
+          color="primary"
+          [disabled]="userForm.invalid"
+          type="submit"
+        >
+          <span *ngIf="isLoading"
+            ><mat-spinner
+              color="accent"
+              [diameter]="20"
+              style="
+                float: left;
+                vertical-align: middle;
+                margin-right: 10%;
+                margin-top: 7%;
+              "
+            ></mat-spinner
+          ></span>
+          Regisztráció
+        </button>
+      </div>
+    </form>
+  </mat-card>
+</div>

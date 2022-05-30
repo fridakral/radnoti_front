@@ -1,0 +1,61 @@
+<div class="projects">
+  <mat-card class="card">
+    <div class="pname">
+      <mat-toolbar
+        color="primary"
+        style="align-items: center; justify-content: center"
+        >{{ projectName }}
+        <button
+          class="position-absolute top-0 end-0"
+          mat-icon-button
+          (click)="deleteProject()"
+          matTooltip="Projekt törlése"
+          matTooltipPosition="right"
+          style="vertical-align: middle"
+        >
+          <mat-icon color="warn">delete_forever</mat-icon>
+        </button>
+      </mat-toolbar>
+      <canvas
+        *ngIf="canvas"
+        style="margin-bottom: 2em; margin-top: 2em"
+        baseChart
+        [data]="pieChartData"
+        [labels]="pieChartLabels"
+        [chartType]="pieChartType"
+        [options]="pieChartOptions"
+        [plugins]="pieChartPlugins"
+        [legend]="pieChartLegend"
+      >
+      </canvas>
+      <!-- tooltip -->
+      <h4
+        *ngIf="!canvas"
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-top: 10%;
+          margin-bottom: 10%;
+          text-align: center;
+        "
+      >
+        Jelenleg ebben a projekben nincs egy kártya sem!
+      </h4>
+    </div>
+    <div
+      style="justify-content: center; text-align: center; margin-bottom: 1rem"
+    >
+      <button
+        mat-raised-button
+        color="accent"
+        (click)="moveToProject()"
+        matTooltip="Projekt megnyitása."
+        matTooltipPosition="right"
+        matTooltipHideDelay="500"
+      >
+        <mat-icon>arrow_forward</mat-icon>
+      </button>
+    </div>
+  </mat-card>
+</div>

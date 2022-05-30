@@ -1,0 +1,21 @@
+.footer {
+  position: fixed;
+  bottom: 1%;
+  width: 98%;
+}
+
+.madeBy,
+.date {
+  padding: 10px;
+  font-size: small;
+  color: grey;
+  position: relative;
+}
+
+.madeBy {
+  margin-right: 10px;
+  font-size: smaller;
+}
+.date {
+  font-size: smaller;
+}

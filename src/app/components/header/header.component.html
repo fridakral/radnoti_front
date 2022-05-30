@@ -1,0 +1,136 @@
+<div class="header">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <span *ngIf="!isDarkMode" style="color: rgb(7, 71, 47); font-size: 30px"
+        >DevOops</span
+      >
+      <span *ngIf="isDarkMode" style="color: #d9b08c; font-size: 30px"
+        >DevOops</span
+      >
+      <div class="right" *ngIf="!isLoggedIn">
+        <mat-icon *ngIf="isDarkMode" style="margin-right: 1rem"
+          >wb_sunny</mat-icon
+        >
+        <mat-icon *ngIf="!isDarkMode" style="margin-right: 1rem"
+          >brightness_3</mat-icon
+        >
+        <div *ngIf="isDarkMode; else elseBlock">
+          <mat-slide-toggle
+            color="accent"
+            (click)="toggleDarkMode()"
+            [(ngModel)]="isDarkMode"
+            matTooltip="Váltás világos módra."
+            matTooltipPosition="below"
+            matTooltipHideDelay="500"
+          ></mat-slide-toggle>
+        </div>
+        <ng-template #elseBlock>
+          <mat-slide-toggle
+            color="accent"
+            (click)="toggleDarkMode()"
+            [(ngModel)]="isDarkMode"
+            matTooltip="Váltás sötét módra."
+            matTooltipPosition="below"
+            matTooltipHideDelay="500"
+          ></mat-slide-toggle>
+        </ng-template>
+        <button
+          style="min-width: 120px; justify-content: right; margin-left: 0.5rem"
+          mat-raised-button
+          (click)="move()"
+          color="accent"
+        >
+          {{ IsLogin ? "Regisztráció" : "Bejelentkezés" }}
+        </button>
+      </div>
+      <div class="right" *ngIf="isLoggedIn">
+        <mat-icon *ngIf="isDarkMode" style="margin-right: 1rem"
+          >wb_sunny</mat-icon
+        >
+        <mat-icon *ngIf="!isDarkMode" style="margin-right: 1rem"
+          >brightness_3</mat-icon
+        >
+        <div *ngIf="isDarkMode; else elseBlock">
+          <mat-slide-toggle
+            color="accent"
+            (click)="toggleDarkMode()"
+            [(ngModel)]="isDarkMode"
+            matTooltip="Váltás világos módra."
+            matTooltipPosition="below"
+            matTooltipHideDelay="500"
+          ></mat-slide-toggle>
+        </div>
+        <ng-template #elseBlock>
+          <mat-slide-toggle
+            color="accent"
+            (click)="toggleDarkMode()"
+            [(ngModel)]="isDarkMode"
+            matTooltip="Váltás sötét módra."
+            matTooltipPosition="below"
+            matTooltipHideDelay="500"
+          ></mat-slide-toggle>
+        </ng-template>
+
+        <button
+          style="min-width: 120px; justify-content: right; margin-left: 0.5rem"
+          mat-raised-button
+          color="accent"
+          (click)="logout()"
+          routerLink="/login"
+        >
+          Kijelentkezés
+        </button>
+      </div>
+    </mat-toolbar-row>
+    <mat-divider></mat-divider>
+    <mat-toolbar-row *ngIf="isLoggedIn" style="height: 80%">
+      <span>
+        <strong> Helló, {{ loggedInUser }}! </strong>
+      </span>
+      <span class="example-spacer"></span>
+
+      <button
+        *ngIf="onMainPage"
+        mat-raised-button
+        matTooltip="Vissza a projektekhez!"
+        matTooltipPosition="below"
+        matTooltipHideDelay="500"
+        (click)="moveToProject()"
+        color="accent"
+        style="font-size: 9px; line-height: 18px"
+      >
+        <mat-icon>keyboard_backspace</mat-icon>
+      </button>
+
+      <button mat-icon-button>
+        <mat-icon
+          class="example-icon"
+          aria-hidden="false"
+          aria-label="Example user verified icon"
+          color="accent"
+          [matMenuTriggerFor]="beforeMenu"
+          >settings</mat-icon
+        >
+      </button>
+      <mat-menu #beforeMenu="matMenu" xPosition="before">
+        <button mat-menu-item (click)="openProfileDialog()">
+          Profil <mat-icon>verified_user</mat-icon>
+        </button>
+        <button
+          *ngIf="onMainPage"
+          mat-menu-item
+          (click)="openEditContributorsDialog()"
+        >
+          Tagok <mat-icon>supervisor_account</mat-icon>
+        </button>
+        <button
+          *ngIf="onMainPage"
+          mat-menu-item
+          (click)="openAddUserToProjectDialog()"
+        >
+          Meghívás <mat-icon>person_add</mat-icon>
+        </button>
+      </mat-menu>
+    </mat-toolbar-row>
+  </mat-toolbar>
+</div>

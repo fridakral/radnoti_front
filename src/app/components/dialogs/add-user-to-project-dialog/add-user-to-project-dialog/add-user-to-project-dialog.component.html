@@ -1,0 +1,53 @@
+<mat-toolbar style="margin-bottom: 1em" color="primary">
+  <h3>Felhasználó meghívása</h3></mat-toolbar
+>
+<form class="example-form" [formGroup]="emailForm" (ngSubmit)="submit()">
+  <mat-form-field
+    class="example-full-width"
+    appearance="outline"
+    style="width: 100%"
+  >
+    <mat-label
+      >Felhasználó meghívása<mat-icon
+        style="vertical-align: middle; margin-left: 1em"
+        >email</mat-icon
+      ></mat-label
+    >
+    <input
+      type="email"
+      placeholder="Válaszd ki az e-mail címet"
+      aria-label="e-mail"
+      matInput
+      formControlName="email"
+      [matAutocomplete]="auto"
+      required
+    />
+    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+      <mat-option
+        *ngFor="let option of filteredOptions | async"
+        [value]="option"
+      >
+        {{ option }}
+      </mat-option>
+    </mat-autocomplete>
+    <mat-error *ngIf="email?.invalid && email?.touched"
+      >Hibás formátum!</mat-error
+    >
+  </mat-form-field>
+  <button
+    mat-raised-button
+    color="accent"
+    type="submit"
+    [disabled]="emailForm.invalid"
+  >
+    Meghívó küldése
+  </button>
+  <button
+    mat-raised-button
+    type="submit"
+    style="margin-left: 1em"
+    mat-dialog-close
+  >
+    Mégse
+  </button>
+</form>

@@ -1,0 +1,51 @@
+<mat-dialog-content>
+  <mat-toolbar color="primary">Projekt tagok</mat-toolbar>
+  <mat-list>
+    <mat-list-item *ngFor="let con of contr; last as last">
+      <p mat-line class="demo-2">{{ con.userName }}</p>
+      <div *ngIf="editing; else elseBlock">
+        <mat-form-field appearance="fill">
+          <mat-label>Szerepkörök</mat-label>
+          <mat-select [value]="con.role">
+            <mat-option *ngFor="let role of roles" [value]="role">
+              {{ role }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <ng-template #elseBlock>
+        <p>{{ con.role }}</p>
+      </ng-template>
+      <button mat-icon-button (click)="editing = !editing">
+        <mat-icon color="accent">edit</mat-icon>
+      </button>
+      <mat-divider [inset]="true" *ngIf="!last"></mat-divider>
+    </mat-list-item>
+  </mat-list>
+  <div class="Btn">
+    <button
+      class="submitBtn"
+      mat-raised-button
+      color="primary"
+      type="submit"
+      (click)="onSubmit()"
+    >
+      <span *ngIf="isLoading"
+        ><mat-spinner
+          color="accent"
+          [diameter]="20"
+          style="
+            float: left;
+            vertical-align: middle;
+            margin-right: 10%;
+            margin-top: 7%;
+          "
+        ></mat-spinner
+      ></span>
+      Módosítás
+    </button>
+    <button style="margin-left: 1em" mat-raised-button mat-dialog-close>
+      Mégse
+    </button>
+  </div>
+</mat-dialog-content>

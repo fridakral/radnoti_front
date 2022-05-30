@@ -1,0 +1,73 @@
+<div
+  class="position-absolute top-50 start-50 translate-middle"
+  style="width: 80vw; z-index: 100"
+  *ngIf="loading"
+>
+  <mat-progress-bar mode="indeterminate" color="accent"></mat-progress-bar>
+  <h3 style="color: #d9b08c">Listák és kártyák betöltése ...</h3>
+</div>
+<div>
+  <div style="height: 100%">
+    <div
+      style="overflow-x: scroll"
+      #elemt
+      (mousedown)="startDragging($event, false, elemt)"
+      (mouseup)="stopDragging($event, false)"
+      (mouseleave)="stopDragging($event, false)"
+      (mousemove)="moveEvent($event, elemt)"
+      *ngIf="!loading"
+      cdkDropListGroup
+      style="height: 80%"
+      class="wrapper parent"
+    >
+      <div class="child" *ngFor="let list of lists">
+        <app-task-section
+          class="example-box"
+          [listsLength]="lists.length"
+          [listID]="list.listId"
+          [listPosition]="list.listPosition"
+          [title]="list.listName"
+          [_tasks]="list.tasks"
+        ></app-task-section>
+      </div>
+      <div
+        *ngIf="listsLength || lists.length != 0; then thenBlock; else elseBlock"
+      ></div>
+      <ng-template #thenBlock>
+        <div style="margin-top: 36px">
+          <button
+            mat-fab
+            color="primary"
+            (click)="createListDialog()"
+            matTooltip="Lista hozzáadása."
+            matTooltipPosition="below"
+            matTooltipHideDelay="500"
+          >
+            <mat-icon>add</mat-icon>
+          </button>
+        </div>
+      </ng-template>
+      <ng-template #elseBlock>
+        <div
+          style="
+            display: flex;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%);
+          "
+        >
+          <button
+            mat-fab
+            color="primary"
+            (click)="createListDialog()"
+            style="margin-right: 1em"
+          >
+            <mat-icon>add</mat-icon>
+          </button>
+          <h1 style="color: #116466">Hozz létre egy listát!</h1>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>

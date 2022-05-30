@@ -1,0 +1,84 @@
+<mat-card class="example-container">
+  <button
+    [hidden]="isListFirst"
+    class="position-absolute top-0 start-0"
+    mat-icon-button
+    matTooltip="Lista mozgatása balra"
+    matTooltipPosition="below"
+    (click)="moveListToLeft()"
+  >
+    <mat-icon color="accent">keyboard_arrow_left</mat-icon>
+  </button>
+  <h5 style="text-transform: uppercase; text-align: center">
+    {{ title }} - {{ tasks?.length ? tasks.length : 0 }}
+  </h5>
+  <button
+    [hidden]="isListLast"
+    class="position-absolute top-0 end-0"
+    mat-icon-button
+    matTooltip="Lista mozgatása jobbra"
+    matTooltipPosition="below"
+    (click)="moveListToRight()"
+  >
+    <mat-icon color="accent">keyboard_arrow_right</mat-icon>
+  </button>
+  <div
+    #fasz
+    cdkDropList
+    [cdkDropListData]="tasks"
+    [cdkDropListAutoScrollStep]="listid"
+    class="example-list"
+    (cdkDropListDropped)="drop($event)"
+  >
+    <div *ngFor="let taskData of tasks">
+      <app-task
+        [taskID]="taskData.taskId"
+        [taskName]="taskData.taskName"
+        [taskDesc]="taskData.taskDescription"
+      ></app-task>
+    </div>
+  </div>
+  <div *ngIf="createTaskBool; else elseBlock">
+    <form
+      [formGroup]="createTaskForm"
+      style="display: flex; width: 100%; margin-top: 1em; align-items: center"
+    >
+      <mat-form-field>
+        <mat-label>Kártyanév</mat-label>
+        <input
+          matInput
+          type="text"
+          appearance="fill"
+          formControlName="taskNameCtrl"
+          placeholder="Pl.: Ez egy kártyanév."
+        />
+        <mat-error *ngIf="taskNameCtrl?.invalid && taskNameCtrl?.touched">
+          Kötelező!
+        </mat-error>
+      </mat-form-field>
+      <div style="width: 100%"></div>
+      <button
+        type="button"
+        mat-icon-button
+        [disabled]="createTaskForm.invalid"
+        (click)="createTaskAction()"
+      >
+        <mat-icon color="accent">add</mat-icon>
+      </button>
+    </form>
+  </div>
+  <ng-template #elseBlock>
+    <div
+      style="
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        margin-top: 1em;
+      "
+    >
+      <button mat-raised-button color="primary" (click)="createTask()">
+        Kártya létrehozása
+      </button>
+    </div>
+  </ng-template>
+</mat-card>
